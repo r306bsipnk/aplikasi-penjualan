@@ -14,18 +14,22 @@ class ProductListView extends StatelessWidget {
       appBar: AppBar(
         title: Text('Produk')
       ),
-      body:SmartRefresher(
-        controller: controller.refreshController,
-        onRefresh:()=>controller.onRefresh(),
-        onLoading:()=>controller.onLoading(),
-        child: ListView(
-          children: [
-              for(var n in controller.list)
-                ListTile(
-                  title:Text('')
-                )
-          ]
-        )
+      body:Obx( () {
+          return SmartRefresher(
+            controller: controller.refreshController,
+            onRefresh:()=>controller.onRefresh(),
+            onLoading:()=>controller.onLoading(),
+            child: ListView(
+              children: [
+                  for(var n in controller.list)
+                    ListTile(
+                      title:Text('${n['kode']} - ${n['nama']}'),
+                      subtitle:Text('${n['harga']}')
+                    )
+              ]
+            )
+          );
+        }
       )
     );
   }
